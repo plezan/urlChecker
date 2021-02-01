@@ -26,25 +26,37 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarsDefault">
-            {% if request.user.is_superuser %}
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'admin:index' %}">Admin</a>
-                </li>
+
+                {% if request.user.is_authenticated %}
+                
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'url:list' %}">URLs</a>
+                    </li>
+                
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'users:logout' %}">Log out</a>
+                    </li>
+                
+                    {% if request.user.is_superuser %}
+                    
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'admin:index' %}">Admin</a>
+                        </li>
+                    
+                    {% endif %}
+                {% else %}
+
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'users:login' %}">Log in</a>
+                    </li>
+                
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'users:register' %}">Register</a>
+                    </li>
+                
+                    {% endif %}
             </ul>
-            {% endif %}
-            {% if request.user.is_authenticated %}
-            <li class="nav-item active">
-                <a class="nav-link" href="{% url 'users:logout' %}">Log out</a>
-            </li>
-            {% else %}
-            <li class="nav-item active">
-                <a class="nav-link" href="{% url 'users:login' %}">Log in</a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="{% url 'users:register' %}">Register</a>
-            </li>
-            {% endif %}
 
         </div>
     </nav>
@@ -57,7 +69,6 @@
         </div>
 
     </main>
-
     {% block body_footer %}{% endblock body_footer %}
 
 </body>

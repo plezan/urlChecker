@@ -6,7 +6,7 @@ Petit outil codé en Django pour monitorer des URLs.
 
 Ce projet permettra de monitorer des URLs.
 
-- [ ] De pouvoir renseigner des URLs et leur responsabilité métier (qu'une erreur n'envoie pas juste l'URL www.google.com/admin mais également "Partie Admin Google")
+- [x] De pouvoir renseigner des URLs et leur responsabilité métier (qu'une erreur n'envoie pas juste l'URL www.google.com/admin mais également "Partie Admin Google")
 - [ ] De pouvoir logguer toutes les vérifications (ayant entrainées une erreur ou non)
 - [ ] De définir des critères d'erreur :
     - [ ] Code HTTP
@@ -15,14 +15,13 @@ Ce projet permettra de monitorer des URLs.
     - [ ] validation du certificat SSL
     - [ ] délai en j avant expiration
 - [ ] L'envoi d'un mail pour les sites ayant été en erreur avec des infos sur les erreurs si possible.
-- [ ] Créer un module d'administration complet.
+- [x] Créer un module d'administration complet.
 
 ## Installation
 
 Pour pouvoir installer le projet il faut avoir installé precedement `python3`, `python3-venv` et `pip`
 ``` bash
-# TODO : Complete with correct repo name/url
-git clone https://github.com/plezan/urlChecker
+git clone https://github.com/plezan/urlChecker.git
 cd urlChecker
 python3 -m venv ../venv_urlChecker
 source ../venv_urlChecker/bin/activate

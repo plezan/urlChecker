@@ -20,8 +20,10 @@ from django.contrib import admin
 admin.site.enable_nav_sidebar = False
 
 import users
+import addresses
 
 urlpatterns = [
     path(r'users/', include('users.urls', namespace='users')),
+    path(r'url/', include('addresses.urls', namespace='url')),
     path('admin/', admin.site.urls),
 ]

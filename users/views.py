@@ -8,6 +8,9 @@ from django.contrib.auth.decorators import login_required
 from .forms import RegisterForm
 from .models import UserProfile
 
+DEFAULT_PAGE_AFTER_LOGIN = "url:list"
+DEFAULT_PAGE_AFTER_LOGOUT = "users:login"
+
 # View
 def hello(request):
     return render(
@@ -20,7 +23,7 @@ def hello(request):
 
 def register_view(request):
     if request.user.is_authenticated:
-        return HttpResponseRedirect(reverse("users:hello"))
+        return HttpResponseRedirect(reverse(DEFAULT_PAGE_AFTER_LOGIN))
     
     if request.method == 'POST':
         form = RegisterForm(request.POST)
@@ -37,7 +40,7 @@ def register_view(request):
             )
             user.save()
             login(request, user)
-            return HttpResponseRedirect(reverse("users:hello"))
+            return HttpResponseRedirect(reverse(DEFAULT_PAGE_AFTER_LOGIN))
     
     else:
         form = RegisterForm()
@@ -56,7 +59,7 @@ def login_view(request):
 
     # ignore if authentificated
     if request.user.is_authenticated:
-        return HttpResponseRedirect(reverse("users:hello"))
+        return HttpResponseRedirect(reverse(DEFAULT_PAGE_AFTER_LOGIN))
 
     # Handle login requests
     if 'username' in request.POST and 'password' in request.POST:
@@ -82,7 +85,7 @@ def login_view(request):
         if request.GET.get('next') is not None:
             return redirect(request.GET['next'])
         else:
-            return HttpResponseRedirect(reverse("users:hello"))
+            return HttpResponseRedirect(reverse(DEFAULT_PAGE_AFTER_LOGIN))
         
             
     # default login renderrer
@@ -96,4 +99,4 @@ def login_view(request):
 @login_required
 def logout_view(request):
     logout(request)
-    return HttpResponseRedirect(reverse("users:register"))
+    return HttpResponseRedirect(reverse(DEFAULT_PAGE_AFTER_LOGOUT))
