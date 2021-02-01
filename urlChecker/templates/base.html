@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}URL Checker{% endblock title %}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    {% load static %}
+    <script src="{% static 'js/base.js' %}"></script>
+    <link href="{% static 'css/base.css' %}" rel="stylesheet">
+
+    {% block head_end %}{% endblock head_end %}
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="#">URL Checker</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsDefault"
+            aria-controls="navbarsDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsDefault">
+            {% if request.user.is_superuser %}
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'admin:index' %}">Admin</a>
+                </li>
+            </ul>
+            {% endif %}
+            {% if request.user.is_authenticated %}
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'users:logout' %}">Log out</a>
+            </li>
+            {% else %}
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'users:login' %}">Log in</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'users:register' %}">Register</a>
+            </li>
+            {% endif %}
+
+        </div>
+    </nav>
+
+    {% block body_header %}{% endblock body_header %}
+    <main role="main" class="container" style="padding-top:60px;">
+
+        <div class="starter-template">
+            {% block content %}{% endblock content %}
+        </div>
+
+    </main>
+
+    {% block body_footer %}{% endblock body_footer %}
+
+</body>
+
+</html>
