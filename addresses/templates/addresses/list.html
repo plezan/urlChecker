@@ -14,8 +14,8 @@
                 <th scope="col">Name</th>
                 <th scope="col">Url</th>
                 <th scope="col">Status</th>
-                <th>Check</th>
                 <th>Edit</th>
+                <th>Check</th>
             </tr>
         </thead>
         <tbody>
@@ -31,7 +31,7 @@
                     {% endif %}
                 </td>
                 <td>
-                    <a class="btn btn-primary" href="{% url 'url:edit' url.id %}">Edit</a>
+                    <a class="btn" href="{% url 'url:edit' url.id %}">Edit</a>
                 </td>
                 <td>
                     <a class="btn btn-primary" href=" url 'url:url_check' url.id ">Check</a>

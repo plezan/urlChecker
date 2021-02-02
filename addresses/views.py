@@ -47,9 +47,11 @@ def new_url(request):
 @login_required
 def edit_url(request, url_id=None):
 
+    # require an id
     if not url_id:
         return HttpResponseRedirect(reverse("url:list"))
     
+    # get instance for that id
     current_instance = None
     try:
         current_instance = Address.objects.get(
@@ -59,12 +61,16 @@ def edit_url(request, url_id=None):
     except Address.DoesNotExist as e:
         return HttpResponseRedirect(reverse("url:list"))
 
-
+    # Handle Post
     if request.method == 'POST':
+
+        # only the user can edit
+        if(current_instance.owner != request.user):
+            return HttpResponseRedirect(reverse("url:list"))
+
+        # save in the database
         form = UrlForm(request.POST, instance=current_instance)
         if form.is_valid():
-            # todo : check 
-            # form.instance.owner = request.user
             form.save()
             return HttpResponseRedirect(reverse("url:list"))
 
