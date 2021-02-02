@@ -19,6 +19,16 @@ class Address(models.Model):
         default=None
     )
 
+    owner = models.ForeignKey(
+        "users.UserProfile",
+        on_delete=models.SET_NULL,
+        verbose_name = "User owning this url",
+        db_index=True,
+        null=True,
+        blank=True,
+        default=None,
+    )
+
     def __str__(self):
         if self.name :
             return self.name

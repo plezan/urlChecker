@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% block title_html %}
+    URL list
+{% endblock %}
+{% block content %}
+    <a class="btn btn-primary btn-block" href="{% url 'url:new' %}" role="button">Add URL</a>
+
+    <h2>URL List</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Url</th>
+                <th scope="col">Status</th>
+                <th>Check</th>
+                <th>Edit</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for url in urls %}
+            <tr>
+                <th scope="row">{{ url }}</th>
+                <td>{{ url.url }}</td>
+                <td>
+                    {% if true %}
+                        ✅
+                    {% else %}
+                        ❌
+                    {% endif %}
+                </td>
+                <td>
+                    <a class="btn btn-primary" href="{% url 'url:edit' url.id %}">Edit</a>
+                </td>
+                <td>
+                    <a class="btn btn-primary" href=" url 'url:url_check' url.id ">Check</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}
